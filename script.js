@@ -87,10 +87,7 @@ const animateNotes = (els) => {
 };
 tl.add(animateNotes(notesG1)).add(animateNotes(notesG2), ">0.05").add(animateNotes(notesG3), ">0.25");
 
-document.addEventListener("click", function()
-{
-    window.location="./main.html";
-});
+
 
 //countdown
 
@@ -100,8 +97,9 @@ document.addEventListener("click", function()
       range: function(min,max) {
         return Math.floor(Math.random() * (max - min + 1) + min);
       },
-      get period() {
+      targetDate: (function() {
         var lunarDates = [
+            
             new Date(2025, 0, 29), // 29 Jan 2025
             new Date(2026, 1, 17), // 17 Feb 2026
             new Date(2027, 1, 6),  // 06 Feb 2027
@@ -119,8 +117,15 @@ document.addEventListener("click", function()
         if (!dateFuture) {
            dateFuture = new Date(dateNow.getFullYear() + 1, 0, 1);
         }
-
+        return dateFuture;
+      })(),
+      get period() {
+        var dateFuture = this.targetDate;
+        var dateNow = new Date();
         var seconds = Math.floor((dateFuture - (dateNow))/1000);
+        if (seconds < 0) {
+            return { year: dateFuture.getFullYear(), days: 0, hours: 0, minutes: 0, seconds: 0 };
+        }
         var minutes = Math.floor(seconds/60);
         var hours = Math.floor(minutes/60);
         var days = Math.floor(hours/24);
@@ -215,6 +220,9 @@ document.addEventListener("click", function()
         animation.controls.minutes.innerHTML = animation.plural("minutes");
         animation.controls.hours.innerHTML = animation.plural("hours");
         animation.controls.days.innerHTML = animation.plural("days");
+        if (animation.controls.seconds.innerHTML == "00 seconds" && animation.controls.minutes.innerHTML == "00 minutes" && animation.controls.hours.innerHTML == "00 hours" && animation.controls.days.innerHTML == "00 days") {
+             window.location="./main.html";
+        }
         requestAnimationFrame(animation.render);
       }
     };
