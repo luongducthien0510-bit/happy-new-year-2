@@ -99,7 +99,7 @@ tl.add(animateNotes(notesG1)).add(animateNotes(notesG2), ">0.05").add(animateNot
       },
       targetDate: (function() {
         var lunarDates = [
-            
+             new Date(2026, 1, 12,14,12,49),
 
             new Date(2025, 0, 29), // 29 Jan 2025
             new Date(2026, 1, 17), // 17 Feb 2026
