@@ -99,7 +99,7 @@ tl.add(animateNotes(notesG1)).add(animateNotes(notesG2), ">0.05").add(animateNot
       },
       targetDate: (function() {
         var lunarDates = [
-              new Date(2026, 1, 12, 13, 57, 33), // Test: 5 mins from now
+            
 
             new Date(2025, 0, 29), // 29 Jan 2025
             new Date(2026, 1, 17), // 17 Feb 2026
@@ -221,7 +221,7 @@ tl.add(animateNotes(notesG1)).add(animateNotes(notesG2), ">0.05").add(animateNot
         animation.controls.minutes.innerHTML = animation.plural("minutes");
         animation.controls.hours.innerHTML = animation.plural("hours");
         animation.controls.days.innerHTML = animation.plural("days");
-        if (animation.controls.seconds.innerHTML == "00 seconds" && animation.controls.minutes.innerHTML == "00 minutes" && animation.controls.hours.innerHTML == "00 hours" && animation.controls.days.innerHTML == "00 days") {
+        if (animation.controls.seconds.innerHTML.startsWith("00") && animation.controls.minutes.innerHTML.startsWith("00") && animation.controls.hours.innerHTML.startsWith("00") && animation.controls.days.innerHTML.startsWith("00")) {
              window.location="./main.html";
         }
         requestAnimationFrame(animation.render);
