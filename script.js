@@ -101,8 +101,25 @@ document.addEventListener("click", function()
         return Math.floor(Math.random() * (max - min + 1) + min);
       },
       get period() {
-        var dateFuture = new Date(new Date().getFullYear() + 1, 0, 1);
+        var lunarDates = [
+            new Date(2025, 0, 29), // 29 Jan 2025
+            new Date(2026, 1, 17), // 17 Feb 2026
+            new Date(2027, 1, 6),  // 06 Feb 2027
+            new Date(2028, 0, 26), // 26 Jan 2028
+            new Date(2029, 1, 13), // 13 Feb 2029
+            new Date(2030, 1, 3),  // 03 Feb 2030
+            new Date(2031, 0, 23), // 23 Jan 2031
+            new Date(2032, 1, 11), // 11 Feb 2032
+            new Date(2033, 0, 31), // 31 Jan 2033
+            new Date(2034, 1, 19), // 19 Feb 2034
+            new Date(2035, 1, 8)   // 08 Feb 2035
+        ];
         var dateNow = new Date();
+        var dateFuture = lunarDates.find(function(d) { return d > dateNow; });
+        if (!dateFuture) {
+           dateFuture = new Date(dateNow.getFullYear() + 1, 0, 1);
+        }
+
         var seconds = Math.floor((dateFuture - (dateNow))/1000);
         var minutes = Math.floor(seconds/60);
         var hours = Math.floor(minutes/60);
@@ -111,7 +128,7 @@ document.addEventListener("click", function()
         minutes = minutes-(days*24*60)-(hours*60);
         seconds = seconds-(days*24*60*60)-(hours*60*60)-(minutes*60);
         return {
-          year: new Date().getFullYear() + 1,
+          year: dateFuture.getFullYear(),
           days: days,
           hours: hours,
           minutes: minutes,
